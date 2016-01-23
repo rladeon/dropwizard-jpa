@@ -3,6 +3,8 @@
  */
 package com.archi.JPA.resource;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -10,9 +12,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.archi.JPA.dao.StationDao;
-import com.archi.JPA.metier.Station;
+import com.archi.JPA.dao.PoiDao;
+import com.archi.JPA.metier.Poi;
 import com.codahale.metrics.annotation.Timed;
+
+import io.dropwizard.hibernate.UnitOfWork;
 /**
  * @author rudi
  *
@@ -24,17 +28,30 @@ public class IndexResource {
 	/**
 	 * 
 	 */
-	private StationDao data;
-    public IndexResource(StationDao collection2) {
+	private PoiDao data;
+    public IndexResource(PoiDao collection2) {
         this.data = collection2;
     }
 	
 	@GET
     @Produces(value = MediaType.APPLICATION_JSON)
     @Timed
-    public List<Station> index() {
-   		
-		return data.readAll();
+    @UnitOfWork
+    public List<Object> index() {
+		List<Object> datas = new ArrayList<Object>();
+        List<Poi> poies = data.readAll();
+		try {
+			for (Iterator<Poi> iterator =
+					poies.iterator(); iterator.hasNext();){
+			
+		    
+		    	datas.add(iterator.next());
+		    }
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return datas;
     
     }
 	

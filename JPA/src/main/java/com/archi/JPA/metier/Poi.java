@@ -4,13 +4,14 @@
 package com.archi.JPA.metier;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Entity;
-import org.hibernate.annotations.Table;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,8 +21,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 @Entity
-@Table(appliesTo = "station")
-public class Station {
+@Table(name = "poi")
+public class Poi {
 	@JsonProperty
 	@Id
     @NotNull
@@ -37,14 +38,26 @@ public class Station {
 	@JsonProperty
 	@Column(name = "lg")
     private String lg;
+	@JsonProperty
+	@Column(name = "alt")
+    private String alt;
+	@JsonProperty
+	@Column(name = "description")
+    private String description;
 	
+	public Poi()
+	{
+		
+	}
  
-	public Station(String libelle, String lat, String lg) 
+	public Poi(String libelle, String lat, String lg, String alt, String description) 
 	{
 		// TODO Auto-generated constructor stub
 		this.libelle = libelle;
 		this.lat = lat;
 		this.lg = lg;
+		this.alt = alt;
+		this.description = description;
 	} 
 	
  
@@ -76,4 +89,20 @@ public class Station {
     {
 		this.lg = lg;
 	}    
+    public String getAlt()
+    {
+        return alt;
+    }
+    public void setAlt(String alt)
+    {
+		this.alt = alt;
+	}
+    public String getDescription()
+    {
+        return description;
+    }
+    public void setDescription(String d)
+    {
+		this.description = d;
+	}
 }

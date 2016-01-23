@@ -3,12 +3,12 @@
  */
 package com.archi.JPA;
 
-import com.archi.JPA.dao.StationDao;
-import com.archi.JPA.health.DataHealthCheck;
-import com.archi.JPA.metier.Station;
-import com.archi.JPA.resource.IndexResource;
+import com.archi.JPA.dao.PoiDao;
 import com.archi.JPA.exception.IOExceptionMapper;
 import com.archi.JPA.health.DataHealthCheck;
+import com.archi.JPA.metier.Poi;
+import com.archi.JPA.resource.DataResource;
+import com.archi.JPA.resource.IndexResource;
 
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
@@ -24,7 +24,7 @@ import io.dropwizard.setup.Environment;
 public class DataApplication extends Application<DataConfiguration>{
 		
 	
-	private StationDao m;
+	private PoiDao poidao;
 		
 	public static void main(String[] args) throws Exception {
         new DataApplication().run(args);
@@ -34,7 +34,7 @@ public class DataApplication extends Application<DataConfiguration>{
      */
     private final HibernateBundle<DataConfiguration> hibernateBundle
             = new HibernateBundle<DataConfiguration>(
-                    Station.class
+                    Poi.class
             ) {
 
                 @Override
@@ -60,9 +60,10 @@ public class DataApplication extends Application<DataConfiguration>{
 		@Override
 		public void run(DataConfiguration arg0, Environment arg1) throws Exception {
 			// TODO Auto-generated method stub
-			final StationDao sdao = new StationDao(hibernateBundle.getSessionFactory());
+			poidao = new PoiDao(hibernateBundle.getSessionFactory());
     
-			arg1.jersey().register(new IndexResource(sdao));
+			arg1.jersey().register(new IndexResource(poidao));
+			arg1.jersey().register(new DataResource(poidao));
 			arg1.jersey().register(new IOExceptionMapper());
 	        arg1.healthChecks().register("Dispo hibernate session", new DataHealthCheck( hibernateBundle.getSessionFactory()));
 		}
