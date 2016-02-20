@@ -5,7 +5,7 @@ database:
 #  user: greencar
 #  password: greencar
   user: adminzrpgtgh
-  password: show
+  password: UVSrKKqgAwm_
 #  url: jdbc:postgresql://localhost:5432/greencar
   url: jdbc:postgresql://@OPENSHIFT_POSTGRESQL_DB_HOST@:@OPENSHIFT_POSTGRESQL_DB_PORT@/greencar
 
