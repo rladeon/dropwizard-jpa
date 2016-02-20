@@ -17,11 +17,9 @@ database:
 server:
   applicationConnectors:
   - type: http 
-    bindHost: @OPENSHIFT_DIY_IP@
     port: 8080
   adminConnectors:
   - type: http
-    bindHost: @OPENSHIFT_DIY_IP@
     port: 8081
     
 # Logging settings.
