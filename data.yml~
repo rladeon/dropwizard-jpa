@@ -7,7 +7,7 @@ database:
   user: adminzrpgtgh
   password: show
 #  url: jdbc:postgresql://localhost:5432/greencar
-  url: jdbc:postgresql://@OPENSHIFT_POSTGRESQL_DB_HOST@:@OPENSHIFT_POSTGRESQL_DB_PORT@/greencar
+  url: jdbc:postgresql://@OPENSHIFT_POSTGRESQL_DB_HOST@:@OPENSHIFT_MONGODB_DB_PORT@/greencar
 
   properties:
     charSet: UTF-8
